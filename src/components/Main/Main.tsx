@@ -4,7 +4,7 @@ import styles from './main.module.scss';
 const Main = () => {
     return (
         <div className={styles.menu}>
-            <h1>Привет</h1>
+            <h1>Основной контент</h1>
         </div>
     );
 };
