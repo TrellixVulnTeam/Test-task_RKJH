@@ -4,6 +4,10 @@ interface IAddress {
     zipcode: number;
 }
 
+interface ICompany{
+    name: string;
+}
+
 export interface IUser{
     id: number;
     name: string;
@@ -12,6 +16,7 @@ export interface IUser{
     address: IAddress;
     phone: number;
     website: string;
+    company: ICompany;
 }
 
 export interface IUsersState {

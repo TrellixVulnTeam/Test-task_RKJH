@@ -1,9 +1,9 @@
 import { takeEvery, call, put }from 'redux-saga/effects';
-import { fetchUsers } from "../API/Users";
 import { ITodo, TodosActionTypes } from "./reducers/Todos/type";
+import { fetchTodos } from "../API/fetchTodos";
 
 function* todosWorker(){
-    const todos:Promise<ITodo[]> = yield call (fetchUsers)
+    const todos:Promise<ITodo[]> = yield call (fetchTodos)
     yield put({ type: TodosActionTypes.FETCH_TODOS_SUCCESS, payload: todos })
 }
 

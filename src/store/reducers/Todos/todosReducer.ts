@@ -14,5 +14,7 @@ export const todosReducer = (state = initialState, action: TodosAction): ITodosS
             return { ...state, loading: false, error: null, todos: action.payload }
         case TodosActionTypes.FETCH_TODOS_ERROR:
             return { ...state, loading: false, error: action.payload, todos: [] }
+        default:
+            return state
     }
 }

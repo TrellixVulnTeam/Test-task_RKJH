@@ -1,5 +1,5 @@
 import { takeEvery, call, put }from 'redux-saga/effects';
-import { fetchUsers } from "../API/Users";
+import { fetchUsers } from "../API/fetchUsers";
 import { IUser, UsersActionTypes } from "./reducers/Users/type";
 
 function* usersWorker(){

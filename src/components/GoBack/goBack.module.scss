@@ -1,0 +1,23 @@
+.back{
+  font-family: 'Ubuntu', sans-serif;
+  margin-right: 10px;
+  margin-top: 10px;
+  width: 120px;
+  height: 40px;
+  line-height: 1;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 3px solid #8C82FC;
+  background: #fff;
+  color: #8C82FC;
+  border-radius: 40px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all .35s;
+
+  &:hover{
+    background: #8C82FC;
+    color: #fff;
+  }
+}
