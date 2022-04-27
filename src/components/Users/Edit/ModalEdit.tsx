@@ -1,6 +1,6 @@
 import React, { FC, SetStateAction, useState } from 'react';
 import styles from './modalEdit.module.scss';
-import { IUser } from "../../../store/reducers/Users/type";
+import { IAddress, ICompany, IUser } from "../../../store/reducers/Users/type";
 
 interface IModalProps {
     setShow: React.Dispatch<SetStateAction<boolean>>;
@@ -21,27 +21,23 @@ const ModalEdit: FC <IModalProps> = ({ setShow, user, setUser }) => {
     const changeHandler = (event:React.ChangeEvent<HTMLInputElement>) => {
         const keyInput:string = event.target.name;
 
-        // const rek = (keyInput:string) => {
-        //     for (const key in newUser) {
-        //         if(Object.prototype.hasOwnProperty.call(newUser, key)) {
-        //             if (key === keyInput) {
-        //                 setNewUser({...newUser, [key]: event.target.value})
-        //             } else if (typeof newUser[key] === 'object') {
-        //                 rek(newUser[key])
-        //             }
-        //         }
-        //     }
-        // }
-        const rek = (obj: unknown) => {
-            for (const key in obj as object) {
+        const rek = (obj:IUser | IAddress | ICompany) => {
+            for (const key in obj) {
                 if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                    if (obj[key] as object | string  === 'object') {
-                        rek(obj[key] as object)
+                    if (typeof obj[key as keyof typeof obj] === 'object') {
+                        rek(obj[key as keyof typeof obj])
                     } else {
-
+                        setNewUser((prevState) => ({...prevState, [keyInput]: event.target.value}))
                     }
                 }
             }
+            // Object.keys(obj).forEach((key) => {
+            //         if (typeof obj[key] === 'object') {
+            //             rek(obj[key])
+            //         } else {
+            //             setNewUser((prevState) => ({...prevState, [keyInput]:event.target.value}))
+            //         }
+            // })
         }
         rek(newUser)
     }
@@ -151,10 +147,10 @@ const ModalEdit: FC <IModalProps> = ({ setShow, user, setUser }) => {
                     <label className={styles.textFieldLabel}>Company</label>
                     <div>
                         <input
-                            name="name"
-                            onChange={changeHandler}
+                            name="company"
+                            onChange={(event) => setNewUser((state) => ({...state, company: ({...state["company"], name: event.target.value})}))}
                             type="text"
-                            placeholder="www.example.com"
+                            placeholder="Company"
                             className={styles.textFieldInput}
                         />
                     </div>

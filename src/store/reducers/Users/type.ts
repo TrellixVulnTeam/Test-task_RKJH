@@ -1,10 +1,10 @@
-interface IAddress {
+export interface IAddress {
     street: string;
     city: string;
     zipcode: number;
 }
 
-interface ICompany{
+export interface ICompany{
     name: string;
 }
 
