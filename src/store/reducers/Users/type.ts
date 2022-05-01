@@ -29,6 +29,7 @@ export enum UsersActionTypes {
     FETCH_USERS = "FETCH_USERS",
     FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS",
     FETCH_USERS_ERROR = "FETCH_USERS_ERROR",
+    FETCH_USERS_UPDATE = "FETCH_USERS_UPDATE",
 }
 
 interface FetchUsers {
@@ -46,4 +47,4 @@ interface FetchUsersError {
     payload: string;
 }
 
-export type UsersAction = FetchUsers | FetchUsersSuccess | FetchUsersError
+export type UsersAction = FetchUsers | FetchUsersSuccess | FetchUsersError;

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { fetchUsersId } from "../../../API/fetchUsers";
+import React, { useCallback, useEffect, useState } from 'react';
 import { IUser } from "../../../store/reducers/Users/type";
 import { useParams } from "react-router-dom";
 import GoBack from "../../GoBack/GoBack";
@@ -8,17 +7,22 @@ import ModalEdit from "../Edit/ModalEdit";
 
 const CurrentUser = () => {
     const { id } = useParams<{ id: string }>();
+    const users = JSON.parse(localStorage.getItem('users') || '');
     const [user, setUser] = useState<IUser | null>(null);
     const [show, setShow] = useState<boolean>(false);
 
     useEffect(() => {
         if (id) {
-            fetchUsersId(id)
-                .then((response) => setUser(response))
-                .catch((error) => error.message)
+            users.filter((element:IUser) => element.id === +id ? setUser(element) : null)
         }
     }, [])
 
+    const changeLocalStorage = useCallback(() => {
+        const replace = users.map((element: IUser) => element.id === user?.id ? user : element)
+        if (user) {
+            localStorage.setItem('users', JSON.stringify(replace))
+        }
+    }, [user])
 
     return (
         <div>
@@ -36,7 +40,7 @@ const CurrentUser = () => {
             <button
                 onClick={() => setShow((state) => !state)}
                 className={styles.button}>Редактировать</button>
-            {show && user && <ModalEdit setUser={setUser} user={user} setShow={setShow} />}
+            {show && user && <ModalEdit changeLocalStorage={() => changeLocalStorage()} setUser={setUser} user={user} setShow={setShow} />}
         </div>
     );
 };

@@ -14,7 +14,11 @@ const UsersList = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        fetchUsers().then((response) => dispatch({type: UsersActionTypes.FETCH_USERS, payload: response}))
+        fetchUsers()
+            .then((response) => {
+                dispatch({type: UsersActionTypes.FETCH_USERS, payload: response})
+                localStorage.setItem('users', JSON.stringify(response))
+            })
     }, [])
 
     const [filter, setFilter] = useState({ sort: '', query: '' });
@@ -36,7 +40,7 @@ const UsersList = () => {
                                     <p><span className={styles.attr}>ФИО:</span>{user.name}</p>
                                     <p><span className={styles.attr}>Город:</span>{user.address?.city || "Не найден"}</p>
                                     <p><span className={styles.attr}>Компания:</span>{user.company?.name || "Не найден"}</p>
-                                    <Link className={styles.full} to={`/users/${user.id}`}>Подробнее</Link>
+                                    <Link className={styles.full} to={`/${user.id}`}>Подробнее</Link>
                                 </div>
                             </div>
                         ))

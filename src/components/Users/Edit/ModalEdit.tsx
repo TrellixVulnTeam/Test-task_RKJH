@@ -5,16 +5,17 @@ import { IAddress, ICompany, IUser } from "../../../store/reducers/Users/type";
 interface IModalProps {
     setShow: React.Dispatch<SetStateAction<boolean>>;
     setUser: React.Dispatch<SetStateAction<IUser | null>>;
+    changeLocalStorage: any;
     user: IUser;
 }
 
-const ModalEdit: FC <IModalProps> = ({ setShow, user, setUser }) => {
+const ModalEdit: FC <IModalProps> = ({ setShow, user, setUser, changeLocalStorage }) => {
     const [newUser, setNewUser] = useState(user);
-    console.log(newUser)
 
-    const clickHandler = (event:React.MouseEvent<HTMLButtonElement>) => {
+    const clickHandler = (event:React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setUser(newUser)
+        changeLocalStorage()
         setShow((state) => !state)
     }
 
@@ -31,19 +32,12 @@ const ModalEdit: FC <IModalProps> = ({ setShow, user, setUser }) => {
                     }
                 }
             }
-            // Object.keys(obj).forEach((key) => {
-            //         if (typeof obj[key] === 'object') {
-            //             rek(obj[key])
-            //         } else {
-            //             setNewUser((prevState) => ({...prevState, [keyInput]:event.target.value}))
-            //         }
-            // })
         }
         rek(newUser)
     }
 
     return (
-        <form className={styles.form} onClick={() => setShow((state) => !state)}>
+        <form className={styles.form} onSubmit={(event) => clickHandler(event)}>
             <div onClick={(event) => event.stopPropagation()} className={styles.wrapper}>
                 <div className={styles.formHeader}>
                     <h2 style={{textAlign: 'center'}}>Редактировать профиль</h2>
@@ -156,7 +150,7 @@ const ModalEdit: FC <IModalProps> = ({ setShow, user, setUser }) => {
                     </div>
                 </div>
                 <div className={styles.wrapperButton}>
-                    <button onClick={(event) => clickHandler(event)} className={styles.button}>
+                    <button  className={styles.button}>
                         <span>Отправить</span>
                     </button>
                 </div>

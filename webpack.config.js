@@ -15,10 +15,10 @@ module.exports = {
   },
   devServer: {
     port: 3000,
-    // historyApiFallback: {
-    //   disableDotRule: true,
-    // },
-    historyApiFallback: true,
+    historyApiFallback: {
+      disableDotRule: true,
+    },
+    // historyApiFallback: true,
   },
   plugins: [
     new HTMLWebpackPlugin({template: "./src/index.html"}),
